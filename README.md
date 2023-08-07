@@ -142,6 +142,9 @@ To only install the local root CA into a subset of them, you can set the `TRUST_
 	    Generate a ".p12" PKCS #12 file, also know as a ".pfx" file,
 	    containing certificate and key for legacy applications.
 
+	-wlan
+	    Generate a certificate for WLAN (EAP-TLS).
+
 	-csr CSR
 	    Generate a certificate based on the supplied CSR. Conflicts with
 	    all other flags and arguments except -install and -cert-file.
@@ -170,6 +173,16 @@ For the certificates to be trusted on mobile devices, you will have to install t
 On iOS, you can either use AirDrop, email the CA to yourself, or serve it from an HTTP server. After opening it, you need to [install the profile in Settings > Profile Downloaded](https://github.com/FiloSottile/mkcert/issues/233#issuecomment-690110809) and then [enable full trust in it](https://support.apple.com/en-nz/HT204477).
 
 For Android, you will have to install the CA and then enable user roots in the development build of your app. See [this StackOverflow answer](https://stackoverflow.com/a/22040887/749014).
+
+### WLAN
+
+mkcert -wlan generates the server authentication extensions (OID 1.3.6.1.5.5.7.3.1), 
+and warns on wildcard certificates, which are forbidden on Windows Server 10.
+
+```
+mkcert -wlan hostname.example.com
+mkcert -wlan -client username
+```
 
 ### Using the root with Node.js
 
